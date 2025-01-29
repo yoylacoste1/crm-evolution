@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control Modificado</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Barra superior */
+        .top-bar {
+            background-color: #666;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            position: relative;
+            z-index: 2;
+            border-bottom: 5px solid #333;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+        }
+
+        .top-bar .left {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background-color: #bbb;
+            border-radius: 50%;
+            margin-right: 20px;
+            background-image: url('');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .search-box {
+            display: flex;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .search-box input {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-name {
+            margin-right: 10px;
+        }
+
+        .user-img {
+            width: 30px;
+            height: 30px;
+            background-color: #bbb;
+            border-radius: 50%;
+            margin-right: 10px;
+            background-image: url('');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .config-icon {
+            width: 20px;
+            height: 20px;
+            background-image: url('config-icon.png');
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+        }
+
+        /* Contenedor principal */
+        .main-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Panel izquierdo */
+        .sidebar {
+            background-color: #9B111E;
+            width: 125px;
+            padding: 10px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+            z-index: 3;
+            border-right: 8px solid #333;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5), inset -4px -4px 10px rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+        }
+
+        .sidebar button {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+            font-size: 12px;
+            text-align: left;
+            padding: 5px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Fondo dinámico con color gris */
+        .dynamic-background {
+            background-color: #d3d3d3;
+            height: 100%;
+            flex: 1;
+            box-shadow: inset 0px 0px 25px rgba(0, 0, 0, 0.6);
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Ventana flotante */
+        .floating-window {
+            width: 90%;
+            height: 90%;
+            background: linear-gradient(145deg, #e6e6e6, #ffffff);
+            border-radius: 15px;
+            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5), -10px -10px 20px rgba(255, 255, 255, 0.8);
+            border: 1px solid #ddd;
+            display: flex;
+            flex-direction: row;
+            overflow: hidden;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- Barra superior -->
+    <div class="top-bar">
+        <div class="left">
+            <div class="logo"></div>
+            <div style="color: white; font-size: 20px;">CRM EVOLUTION</div>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Buscar...">
+        </div>
+        <div class="user-info">
+            <div class="user-name">Nombre Usuario</div>
+            <div class="user-img"></div>
+            <div class="config-icon"></div>
+        </div>
+    </div>
+
+    <!-- Contenedor principal -->
+    <div class="main-container">
+        <!-- Panel izquierdo -->
+        <div class="sidebar">
+            <button>Panel</button>
+            <button>Clientes</button>
+            <button>Chat</button>
+            <button>Agendado</button>
+            <button>Status</button>
+            <button>Integración</button>
+            <button>Asignación</button>
+            <button>Estadística</button>
+            <button>Cerrar Sesión</button>
+            <button>Configuración</button>
+            <button>Soporte</button>
+        </div>
+
+        <!-- Área dinámica con ventana flotante -->
+        <div class="dynamic-background">
+    <div class="floating-window" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 10px;">
+        <!-- Integración a WhatsApp -->
+        <div class="container" style="background: linear-gradient(145deg, #e6e6e6, #ffffff); border: 2px solid rgba(0, 0, 0, 0.1); border-radius: 10px; box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.3), -8px -8px 20px rgba(255, 255, 255, 0.8); padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 200px; text-align: center;">
+            <h3 style="font-size: 20px; margin-bottom: 15px;">INTEGRACIÓN A WHATSAPP</h3>
+            <p style="font-size: 16px; margin-bottom: 20px;">Con esta integración, puedes automatizar todos los chats.</p>
+            <button style="background-color: #666; color: white; border: 1px solid white; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px;">Entrar</button>
+        </div>
+
+        <!-- Integración a ChatGPT -->
+        <div class="container" style="background: linear-gradient(145deg, #e6e6e6, #ffffff); border: 2px solid rgba(0, 0, 0, 0.1); border-radius: 10px; box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.3), -8px -8px 20px rgba(255, 255, 255, 0.8); padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 200px; text-align: center;">
+            <h3 style="font-size: 20px; margin-bottom: 10px;">INTEGRACIÓN A CHATGPT</h3>
+            <p style="font-size: 16px; margin-bottom: 20px;">Con este asistente, puedes contestar todos tus mensajes automáticamente.</p>
+            <button style="background-color: #666; color: white; border: 1px solid white; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px;">Entrar</button>
+        </div>
+
+        <!-- Integración a Calendario -->
+        <div class="container" style="background: linear-gradient(145deg, #e6e6e6, #ffffff); border: 2px solid rgba(0, 0, 0, 0.1); border-radius: 10px; box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.3), -8px -8px 20px rgba(255, 255, 255, 0.8); padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 200px; text-align: center;">
+            <h3 style="font-size: 20px; margin-bottom: 15px;">INTEGRACIÓN A CALENDARIO</h3>
+            <p style="font-size: 16px; margin-bottom: 20px;">Permite agendar visitas para cada cliente.</p>
+            <button style="background-color: #666; color: white; border: 1px solid white; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px;">Entrar</button>
+        </div>
+
+        <!-- Integración a Correo Electrónico -->
+        <div class="container" style="background: linear-gradient(145deg, #e6e6e6, #ffffff); border: 2px solid rgba(0, 0, 0, 0.1); border-radius: 10px; box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.3), -8px -8px 20px rgba(255, 255, 255, 0.8); padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 200px; text-align: center;">
+            <h3 style="font-size: 20px; margin-bottom: 15px;">INTEGRACIÓN A CORREO ELECTRÓNICO</h3>
+            <p style="font-size: 16px; margin-bottom: 20px;">Ayuda en la automatización de agendamiento de visitas.</p>
+            <button style="background-color: #666; color: white; border: 1px solid white; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px;">Entrar</button>
+        </div>
+
+        <!-- Integración a Mensajes Masivos -->
+        <div class="container" style="background: linear-gradient(145deg, #e6e6e6, #ffffff); border: 2px solid rgba(0, 0, 0, 0.1); border-radius: 10px; box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.3), -8px -8px 20px rgba(255, 255, 255, 0.8); padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 200px; text-align: center;">
+            <h3 style="font-size: 20px; margin-bottom: 15px;">INTEGRACIÓN A MENSAJES MASIVOS</h3>
+            <p style="font-size: 16px; margin-bottom: 20px;">Aplicación para el envío de mensajes masivos por WhatsApp.</p>
+            <button style="background-color: #666; color: white; border: 1px solid white; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px;">Entrar</button>
+        </div>
+
+        <!-- Más Integraciones -->
+        <div class="container" style="background: linear-gradient(145deg, #e6e6e6, #ffffff); border: 2px solid rgba(0, 0, 0, 0.1); border-radius: 10px; box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.3), -8px -8px 20px rgba(255, 255, 255, 0.8); padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 200px; text-align: center;">
+            <h3 style="font-size: 20px; margin-bottom: 15px;">MÁS INTEGRACIONES</h3>
+            <p style="font-size: 16px; margin-bottom: 20px;">Aquí puedes encontrar más aplicaciones para integrar al CRM.</p>
+            <button style="background-color: #666; color: white; border: 1px solid white; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px;">Entrar</button>
+        </div>
+    </div>
+</div>

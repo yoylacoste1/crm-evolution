@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control Modificado</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .top-bar {
+            background-color: #666;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            position: relative;
+            z-index: 2;
+            border-bottom: 5px solid #333;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+        }
+
+        .top-bar .left {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background-color: #bbb;
+            border-radius: 50%;
+            margin-right: 20px;
+            background-image: url('');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .search-box {
+            display: flex;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .search-box input {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-name {
+            margin-right: 10px;
+        }
+
+        .user-img {
+            width: 30px;
+            height: 30px;
+            background-color: #bbb;
+            border-radius: 50%;
+            margin-right: 10px;
+            background-image: url('');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .config-icon {
+            width: 20px;
+            height: 20px;
+            background-image: url('config-icon.png');
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+        }
+
+        /* Contenedor principal */
+        .main-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Panel izquierdo */
+        .sidebar {
+            background-color: #9B111E;
+            width: 125px;
+            padding: 10px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+            z-index: 3;
+            border-right: 8px solid #333;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5), inset -4px -4px 10px rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+        }
+
+        .sidebar button {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+            font-size: 12px;
+            text-align: left;
+            padding: 5px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Fondo dinámico con color gris */
+        .dynamic-background {
+            background-color: #d3d3d3;
+            height: 100%;
+            flex: 1;
+            box-shadow: inset 0px 0px 25px rgba(0, 0, 0, 0.6);
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        /* Estilo ventana flotante */
+        .window {
+            width: 95%;
+            height: 70%;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.5), inset 0px 0px 25px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 20px;
+            margin: 0 auto;
+        }
+
+        .window-right {
+            width: 60%;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 22px;
+            overflow-y: auto; /* Habilita la barra de desplazamiento vertical */
+            max-height: 90%; /* Limita la altura máxima para forzar el scroll si hay mucho contenido */
+            height: 100%; /* Establece una altura para evitar que crezca indefinidamente */
+
+        }
+
+        .window-left {
+            width: 35%;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+        }
+
+        /* Calendario */
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr); /* 7 columnas para los días */
+            grid-gap: 5px;
+            text-align: center;
+        }
+
+        .calendar-header {
+            grid-column: span 7;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .calendar-header span {
+            width: 100%;
+            text-align: center;
+        }
+
+        .day {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .day:hover {
+            background-color: #b1c7d8;
+        }
+
+        .calendar h3 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra superior -->
+    <div class="top-bar">
+        <div class="left">
+            <div class="logo"></div>
+            <div style="color: white; font-size: 20px;">CRM EVOLUTION</div>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Buscar...">
+        </div>
+        <div class="user-info">
+            <div class="user-name">Nombre Usuario</div>
+            <div class="user-img"></div>
+            <div class="config-icon"></div>
+        </div>
+    </div>
+
+    <!-- Contenedor principal -->
+    <div class="main-container">
+        <!-- Panel izquierdo -->
+        <div class="sidebar">
+            <button>Panel</button>
+            <button>Clientes</button>
+            <button>Chat</button>
+            <button>Agendado</button>
+            <button>Status</button>
+            <button>Integración</button>
+            <button>Asignación</button>
+            <button>Estadística</button>
+            <button>Cerrar Sesión</button>
+            <button>Configuración</button>
+            <button>Soporte</button>
+        </div>
+
+        <!-- Área dinámica con fondo gris y ventana flotante 3D -->
+        <div class="dynamic-background">
+            <!-- Ventana flotante 3D -->
+            <div class="window">
+                <!-- Primer contenedor (Calendario) -->
+                <div class="window-left">
+                    <h2>Calendario</h2>
+                    <h3>Febrero 2025</h3>
+                    <div class="calendar">
+                        <div class="calendar-header">
+                            <span>Lun</span>
+                            <span>Mar</span>
+                            <span>Mié</span>
+                            <span>Jue</span>
+                            <span>Vie</span>
+                            <span>Sáb</span>
+                            <span>Dom</span>
+                        </div>
+                        <!-- Días del calendario (35 cuadritos) -->
+                        <div class="day"></div>
+                        <div class="day"></div>
+                        <div class="day"></div>
+                        <div class="day">1</div>
+                        <div class="day">2</div>
+                        <div class="day">3</div>
+                        <div class="day">4</div>
+                        <div class="day">5</div>
+                        <div class="day">6</div>
+                        <div class="day">7</div>
+                        <div class="day">8</div>
+                        <div class="day">9</div>
+                        <div class="day">10</div>
+                        <div class="day">11</div>
+                        <div class="day">12</div>
+                        <div class="day">13</div>
+                        <div class="day">14</div>
+                        <div class="day">15</div>
+                        <div class="day">16</div>
+                        <div class="day">17</div>
+                        <div class="day">18</div>
+                        <div class="day">19</div>
+                        <div class="day">20</div>
+                        <div class="day">21</div>
+                        <div class="day">22</div>
+                        <div class="day">23</div>
+                        <div class="day">24</div>
+                        <div class="day">25</div>
+                        <div class="day">26</div>
+                        <div class="day">27</div>
+                        <div class="day">28</div>
+                        <div class="day">29</div>
+                        <div class="day">30</div>
+                        <div class="day">31</div>
+                        <div class="day"></div>
+                    </div>
+                </div>
+
+                <!-- Segundo contenedor (Lista de clientes) -->
+               <div class="window-right">
+    <h2>Lista de Clientes - Dia 12 de Febrero</h2>
+    <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+        <thead>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Número de Suscriptor</th>
+                <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Nombre del Cliente</th>
+                <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Número de Teléfono</th>
+                <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Hora de Visita</th>
+                <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Dirección</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px;">(001) 123-456-7890</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Juan Pérez</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">+34 912 345 678</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">10:00 AM</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Calle Ficticia 123, Madrid</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px;">(002) 987-654-3210</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Ana González</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">+34 634 567 890</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">11:30 AM</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Avenida Principal 45, Barcelona</td>
+            </tr>
+                <td style="border: 1px solid #ddd; padding: 8px;">(001) 123-456-7890</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Juan Pérez</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">+34 912 345 678</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">10:00 AM</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Calle Ficticia 123, Madrid</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px;">(002) 987-654-3210</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Ana González</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">+34 634 567 890</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">11:30 AM</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Avenida Principal 45, Barcelona</td>
+            </tr>
+                <td style="border: 1px solid #ddd; padding: 8px;">(001) 123-456-7890</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Juan Pérez</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">+34 912 345 678</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">10:00 AM</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Calle Ficticia 123, Madrid</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px;">(002) 987-654-3210</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Ana González</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">+34 634 567 890</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">11:30 AM</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Avenida Principal 45, Barcelona</td>
+            </tr>
+            <!-- Agrega más filas aquí según sea necesario -->
+        </tbody>
+    </table>
+</div>
+
+
+
+
