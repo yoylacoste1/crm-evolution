@@ -1,14 +1,9 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from .models import Contact, Task
-
-@login_required
-def dashboard(request):
-    contacts = Contact.objects.filter(owner=request.user)
-    tasks = Task.objects.filter(owner=request.user, completed=False).order_by('due_date')
-    return render(request, 'crm/dashboard.html', {'contacts': contacts, 'tasks': tasks})
-
 from django.shortcuts import render
 
+# Vista para Login
+def login_view(request):
+    return render(request, 'registration/login.html')  # Asegúrate que esté la ruta correcta de tu HTML
+
+# Vista para Panel de Control
 def panel(request):
-    return render(request, 'registration/panel de control.html')  # Ruta al archivo HTML
+    return render(request, 'registration/panel_de_control.html')  # Asegúrate de tener la ruta correcta
