@@ -1,13 +1,30 @@
+import os
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+import dj_database_url
 
+# Definir BASE_DIR
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-secret-key'
+# Carga el archivo .env
+load_dotenv()
 
-DEBUG = True
+# Lee la clave secreta desde .env
+SECRET_KEY = os.getenv('SECRET_KEY')
 
-ALLOWED_HOSTS = []
+# Asegúrate de que DEBUG esté configurado correctamente
+DEBUG = os.getenv('DEBUG') == 'True'
 
+# Lee los hosts permitidos desde .env
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+
+# Configura la base de datos usando DATABASE_URL
+DATABASES = {
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+}
+
+# Configuración de las aplicaciones instaladas
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -15,9 +32,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crm',
+    'crm',  # Agregamos la app principal
 ]
 
+# Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -28,14 +46,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Configuración de las URLs
 ROOT_URLCONF = 'crm_evolution.urls'
 
+# Configuración de templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            BASE_DIR / 'CRM' / 'Template',  # Ruta a la carpeta de plantillas
-        ],
+        'DIRS': [os.path.join(BASE_DIR, 'crm', 'templates')],  # Ubicación correcta de las plantillas
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -48,31 +66,15 @@ TEMPLATES = [
     },
 ]
 
-
+# Configuración de WSGI
 WSGI_APPLICATION = 'crm_evolution.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# Configuración estática y media
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'crm', 'static')]
 
-AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
-]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_TZ = True
-
-STATIC_URL = 'static/'
-
+# Otras configuraciones de Django
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

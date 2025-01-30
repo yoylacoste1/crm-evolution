@@ -1,14 +1,38 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from .models import Contact, Task
-
-@login_required
-def dashboard(request):
-    contacts = Contact.objects.filter(owner=request.user)
-    tasks = Task.objects.filter(owner=request.user, completed=False).order_by('due_date')
-    return render(request, 'crm/dashboard.html', {'contacts': contacts, 'tasks': tasks})
-
 from django.shortcuts import render
 
-def panel(request):
-    return render(request, 'registration/panel de control.html')  # Ruta al archivo HTML
+
+def test_view(request):
+    return render(request, 'registration/tes.html')  
+
+def login_view(request):
+    return render(request, 'registration/login.html')
+
+def panel_view(request):
+    return render(request, 'registration/panel de control.html')
+
+def agendado_view(request):
+    return render(request, 'registration/agendado.html')
+
+def asignacion_view(request):
+    return render(request, 'registration/asignacion.html')
+
+def chat_view(request):
+    return render(request, 'registration/chat.html')
+
+def clientes_view(request):
+    return render(request, 'registration/clientes.html')
+
+def configuracion_view(request):
+    return render(request, 'registration/configuracion.html')
+
+def estadisticas_view(request):
+    return render(request, 'registration/estadisticas.html')
+
+def estatus_view(request):
+    return render(request, 'registration/estatus.html')
+
+def integracion_view(request):
+    return render(request, 'registration/integracion.html')
+
+def soporte_view(request):
+    return render(request, 'registration/soporte.html')
