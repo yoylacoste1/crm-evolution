@@ -1,15 +1,7 @@
 from django.urls import path
-from . import views
+from . import views  # Importar las vistas de la app
 
 urlpatterns = [
-    path('', views.dashboard, name='dashboard'),
+    path('', views.login_view, name='login'),  # Cambié 'dashboard' por 'login'
+    path('panel/', views.panel, name='panel_control'),
 ]
-
-from django.urls import path
-from . import views  # Asegúrate de importar las vistas de tu app
-
-urlpatterns = [
-    # Otras rutas que ya tengas configuradas
-    path('panel/', views.panel, name='panel_control'),  # Nueva ruta para el Panel de Control
-]
-
