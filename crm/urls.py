@@ -18,4 +18,5 @@ urlpatterns = [
     path('estatus/', views.estatus_view, name='estatus'),
     path('integracion/', views.integracion_view, name='integracion'),
     path('soporte/', views.soporte_view, name='soporte'),
+    path('', views.login_view, name='login'),  # Redirige a login por defecto
 ]
